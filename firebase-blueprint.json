@@ -1,0 +1,159 @@
+{
+  "entities": {
+    "UserProfile": {
+      "title": "UserProfile",
+      "description": "User nutrition goals, body metrics, app preferences, and subscription state.",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string", "description": "Firebase Auth UID of the owner." },
+        "displayName": { "type": "string", "description": "Display name." },
+        "age": { "type": "integer", "description": "Age in years." },
+        "gender": { "type": "string", "enum": ["male", "female"] },
+        "heightCm": { "type": "number", "description": "Height in cm." },
+        "weightKg": { "type": "number", "description": "Current weight in kg." },
+        "startWeightKg": { "type": "number", "description": "Starting weight in kg." },
+        "targetWeightKg": { "type": "number", "description": "Goal weight in kg." },
+        "activityLevel": { "type": "string", "enum": ["sedentary", "light", "moderate", "active", "athlete"] },
+        "goalType": { "type": "string", "enum": ["lose", "maintain", "gain", "keto", "high_protein"] },
+        "targetCalories": { "type": "integer", "description": "Daily calorie target." },
+        "targetCarbsG": { "type": "integer", "description": "Daily carbohydrates target in grams." },
+        "targetProteinG": { "type": "integer", "description": "Daily protein target in grams." },
+        "targetFatsG": { "type": "integer", "description": "Daily fats target in grams." },
+        "targetWaterMl": { "type": "integer", "description": "Daily water target in milliliters." },
+        "preferredLanguage": { "type": "string", "enum": ["ar", "en"] },
+        "themeMode": { "type": "string", "enum": ["system", "light", "dark"] },
+        "subscriptionTier": { "type": "string", "enum": ["free", "monthly", "quarterly", "annual"] },
+        "subscriptionNumber": { "type": "string", "description": "Simple numeric member/phone subscription ID." },
+        "subscriptionActive": { "type": "boolean", "description": "Whether Pro subscription is active." },
+        "createdAt": { "type": "string", "format": "date-time", "description": "Server timestamp on create." },
+        "updatedAt": { "type": "string", "format": "date-time", "description": "Server timestamp on update." }
+      },
+      "required": [
+        "userId", "displayName", "age", "gender", "heightCm", "weightKg", "startWeightKg", "targetWeightKg",
+        "activityLevel", "goalType", "targetCalories", "targetCarbsG", "targetProteinG", "targetFatsG",
+        "targetWaterMl", "preferredLanguage", "themeMode", "subscriptionTier", "subscriptionNumber",
+        "subscriptionActive", "createdAt", "updatedAt"
+      ]
+    },
+    "MealLog": {
+      "title": "MealLog",
+      "description": "Logged meal with macros and calories for a given date.",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "dateKey": { "type": "string", "description": "Date key YYYY-MM-DD." },
+        "nameAr": { "type": "string" },
+        "nameEn": { "type": "string" },
+        "mealType": { "type": "string", "enum": ["breakfast", "lunch", "dinner", "snack"] },
+        "calories": { "type": "integer" },
+        "carbsG": { "type": "number" },
+        "proteinG": { "type": "number" },
+        "fatsG": { "type": "number" },
+        "servingLabel": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": [
+        "userId", "dateKey", "nameAr", "nameEn", "mealType", "calories",
+        "carbsG", "proteinG", "fatsG", "servingLabel", "createdAt", "updatedAt"
+      ]
+    },
+    "WorkoutLog": {
+      "title": "WorkoutLog",
+      "description": "Logged workout session with duration and calories burned.",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "dateKey": { "type": "string" },
+        "titleAr": { "type": "string" },
+        "titleEn": { "type": "string" },
+        "category": { "type": "string", "enum": ["strength", "cardio", "hiit", "flexibility", "sports"] },
+        "durationMinutes": { "type": "integer" },
+        "caloriesBurned": { "type": "integer" },
+        "completed": { "type": "boolean" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": [
+        "userId", "dateKey", "titleAr", "titleEn", "category",
+        "durationMinutes", "caloriesBurned", "completed", "createdAt", "updatedAt"
+      ]
+    },
+    "DailyStat": {
+      "title": "DailyStat",
+      "description": "Daily hydration, steps, and optional weight check-in keyed by YYYY-MM-DD.",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "dateKey": { "type": "string" },
+        "waterMl": { "type": "integer" },
+        "steps": { "type": "integer" },
+        "weightKg": { "type": "number" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["userId", "dateKey", "waterMl", "steps", "weightKg", "createdAt", "updatedAt"]
+    },
+    "ReminderItem": {
+      "title": "ReminderItem",
+      "description": "Custom scheduled nutrition, hydration, or workout reminder.",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "titleAr": { "type": "string" },
+        "titleEn": { "type": "string" },
+        "category": { "type": "string", "enum": ["water", "meal", "workout", "weigh_in", "custom"] },
+        "hour": { "type": "integer" },
+        "minute": { "type": "integer" },
+        "enabled": { "type": "boolean" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["userId", "titleAr", "titleEn", "category", "hour", "minute", "enabled", "createdAt", "updatedAt"]
+    },
+    "PaymentMethodItem": {
+      "title": "PaymentMethodItem",
+      "description": "Saved masked payment method metadata for membership billing.",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "provider": {
+          "type": "string",
+          "enum": ["mada", "visa_master", "apple_google_pay", "stc_pay", "tabby", "tamara", "vodafone_cash", "numeric_voucher"]
+        },
+        "label": { "type": "string" },
+        "maskedIdentifier": { "type": "string" },
+        "isDefault": { "type": "boolean" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["userId", "provider", "label", "maskedIdentifier", "isDefault", "createdAt", "updatedAt"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": { "$ref": "#/entities/UserProfile" },
+      "description": "User profile, macro targets, preferences, and subscription status."
+    },
+    "/users/{userId}/mealLogs/{mealId}": {
+      "schema": { "$ref": "#/entities/MealLog" },
+      "description": "User daily meal logs."
+    },
+    "/users/{userId}/workoutLogs/{workoutId}": {
+      "schema": { "$ref": "#/entities/WorkoutLog" },
+      "description": "User workout sessions."
+    },
+    "/users/{userId}/dailyStats/{dateKey}": {
+      "schema": { "$ref": "#/entities/DailyStat" },
+      "description": "User daily hydration, steps, and weight records."
+    },
+    "/users/{userId}/reminders/{reminderId}": {
+      "schema": { "$ref": "#/entities/ReminderItem" },
+      "description": "User custom reminders."
+    },
+    "/users/{userId}/paymentMethods/{methodId}": {
+      "schema": { "$ref": "#/entities/PaymentMethodItem" },
+      "description": "User saved masked payment methods."
+    }
+  }
+}

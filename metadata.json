@@ -1,0 +1,6 @@
+{
+  "name": "NutriPulse",
+  "description": "Bilingual Arabic & English health, macro (carbs, protein, calories), workout, daily progress, nutrition tips, custom reminders, and subscription app.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
